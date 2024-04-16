@@ -5,18 +5,30 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrievecep/impl"
+	viacep "github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrievecep/impl"
+	weatherApi "github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrieveweather/impl"
 	"github.com/allanCordeiro/pos-fc-cloud-run/internal/usecase/cep"
+	"github.com/allanCordeiro/pos-fc-cloud-run/internal/usecase/weather"
 )
 
 func main() {
-	searchCep := impl.NewViaCep(http.DefaultClient)
-	usecase := cep.NewRetrieveUseCase(searchCep)
+	searchCep := viacep.NewViaCep(http.DefaultClient)
+	usecaseCep := cep.NewRetrieveUseCase(searchCep)
 	cep := cep.Input{Zipcode: "04266-060"}
-	output, err := usecase.Execute(context.TODO(), cep)
+	output, err := usecaseCep.Execute(context.TODO(), cep)
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println(output)
+
+	searchCity := weatherApi.NewWeatherApi(http.DefaultClient)
+	useCaseWeather := weather.NewRetrieveUseCase(searchCity)
+	weatherOutput, err := useCaseWeather.Execute(context.TODO(), weather.Input{City: output.City})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(weatherOutput)
+
 }
