@@ -10,7 +10,7 @@ import (
 
 func main() {
 	searchCep := impl.NewViaCep(http.DefaultClient)
-	zipcode, err := searchCep.Retrieve(context.TODO(), "04266060")
+	zipcode, err := searchCep.Retrieve(context.TODO(), "01112100")
 	if err != nil {
 		panic(err)
 	}
