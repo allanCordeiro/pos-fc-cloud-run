@@ -6,13 +6,17 @@ import (
 	"net/http"
 
 	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrievecep/impl"
+	"github.com/allanCordeiro/pos-fc-cloud-run/internal/usecase/cep"
 )
 
 func main() {
 	searchCep := impl.NewViaCep(http.DefaultClient)
-	zipcode, err := searchCep.Retrieve(context.TODO(), "01112100")
+	usecase := cep.NewRetrieveUseCase(searchCep)
+	cep := cep.Input{Zipcode: "04266-060"}
+	output, err := usecase.Execute(context.TODO(), cep)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(zipcode)
+
+	fmt.Println(output)
 }
