@@ -3,7 +3,11 @@ package domain
 import "github.com/allanCordeiro/pos-fc-cloud-run/pkg"
 
 type Cep struct {
-	Code string
+	Code     string
+	Address  string
+	District string
+	City     string
+	State    string
 }
 
 func NewCep(cep string) *Cep {
