@@ -2,7 +2,9 @@ package cep
 
 import (
 	"context"
+	"log"
 
+	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
 	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrievecep"
 )
 
@@ -21,14 +23,35 @@ type Output struct {
 	State    string
 }
 
+type CepErrorsOutput struct {
+	Code    int
+	Message string
+}
+
 func NewRetrieveUseCase(service retrievecep.Service) *RetrieveUseCase {
 	return &RetrieveUseCase{Service: service}
 }
 
-func (u *RetrieveUseCase) Execute(ctx context.Context, input Input) (Output, error) {
+func (u *RetrieveUseCase) Execute(ctx context.Context, input Input) (Output, *CepErrorsOutput) {
 	cep, err := u.Service.Retrieve(ctx, input.Zipcode)
 	if err != nil {
-		return Output{}, err
+		if err == domain.ErrInvalidZipCode {
+			return Output{}, &CepErrorsOutput{
+				Code:    422,
+				Message: err.Error(),
+			}
+		}
+		if err == domain.ErrZipCodeNotFound {
+			return Output{}, &CepErrorsOutput{
+				Code:    404,
+				Message: err.Error(),
+			}
+		}
+		log.Println(err)
+		return Output{}, &CepErrorsOutput{
+			Code:    500,
+			Message: "internal server error. please try again later",
+		}
 	}
 
 	return Output{

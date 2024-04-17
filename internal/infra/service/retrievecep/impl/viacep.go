@@ -48,6 +48,9 @@ func (v *ViaCep) Retrieve(ctx context.Context, cep string) (*domain.Cep, error) 
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
+		if res.StatusCode == http.StatusBadRequest {
+			return nil, domain.ErrInvalidZipCode
+		}
 		return nil, errors.New("http error status code: " + res.Status)
 	}
 
@@ -59,6 +62,9 @@ func (v *ViaCep) Retrieve(ctx context.Context, cep string) (*domain.Cep, error) 
 	output, err := parser(body)
 	if err != nil {
 		return nil, err
+	}
+	if output.Cep == "" {
+		return nil, domain.ErrZipCodeNotFound
 	}
 
 	return &domain.Cep{
