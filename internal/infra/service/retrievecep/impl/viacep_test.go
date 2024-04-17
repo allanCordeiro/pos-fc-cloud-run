@@ -52,7 +52,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 		}, result)
 	})
 
-	t.Run("given an unknown zipcode when retrieve should return status 200 but no zipcode data", func(t *testing.T) {
+	t.Run("given an unknown zipcode when retrieve should return error cannot find zipcode", func(t *testing.T) {
 		// Configuração do mock HTTP
 		httpmock.Activate()
 		defer httpmock.DeactivateAndReset()
@@ -72,9 +72,9 @@ func TestViaCep_Retrieve(t *testing.T) {
 		viaCep := impl.NewViaCep(httpClient)
 
 		// Teste do método Retrieve
-		result, err := viaCep.Retrieve(context.Background(), "01112100")
-		assert.NoError(t, err)
-		assert.Equal(t, &domain.Cep{}, result)
+		_, err := viaCep.Retrieve(context.Background(), "01112100")
+		assert.Error(t, err)
+		assert.Equal(t, domain.ErrZipCodeNotFound, err)
 	})
 
 	t.Run("given an invalid zipcode when retrieve should return status 400", func(t *testing.T) {
@@ -96,7 +96,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 		// Teste do método Retrieve
 		_, err := viaCep.Retrieve(context.Background(), "011121000")
 		assert.Error(t, err)
-		assert.Equal(t, "http error status code: 400", err.Error())
+		assert.Equal(t, domain.ErrInvalidZipCode, err)
 	})
 
 }

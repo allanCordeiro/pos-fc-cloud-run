@@ -3,7 +3,6 @@ package handler
 import (
 	"context"
 	"encoding/json"
-	"log"
 	"net/http"
 	"time"
 
@@ -38,10 +37,11 @@ func (h *WeatherHandler) GetWeather(w http.ResponseWriter, r *http.Request) {
 	}
 
 	weatherInput := weather.Input{City: zipcodeOutput.City}
-	weatherOutput, err := h.WeatherUseCase.Execute(ctx, weatherInput)
-	if err != nil {
-		log.Println(err)
-		//TODO send back error to response
+	weatherOutput, errWeather := h.WeatherUseCase.Execute(ctx, weatherInput)
+	if errWeather != nil {
+		w.WriteHeader(errWeather.Code)
+		json.NewEncoder(w).Encode(errWeather.Message)
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)

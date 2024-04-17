@@ -2,7 +2,10 @@ package weather
 
 import (
 	"context"
+	"log"
+	"strings"
 
+	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
 	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrieveweather"
 )
 
@@ -20,14 +23,30 @@ type Output struct {
 	Kelvin     float64 `json:"temp_K"`
 }
 
+type WeatherErrorsOutput struct {
+	Code    int
+	Message string
+}
+
 func NewRetrieveUseCase(service retrieveweather.Retrieve) *RetrieveUseCase {
 	return &RetrieveUseCase{Service: service}
 }
 
-func (r *RetrieveUseCase) Execute(ctx context.Context, input Input) (*Output, error) {
+func (r *RetrieveUseCase) Execute(ctx context.Context, input Input) (*Output, *WeatherErrorsOutput) {
 	temperatures, err := r.Service.Retrieve(ctx, input.City)
 	if err != nil {
-		return nil, err
+		if strings.Contains(err.Error(), "internal") {
+			log.Println(err)
+			return nil, &WeatherErrorsOutput{
+				Code:    500,
+				Message: "internal server error. please try again later",
+			}
+		}
+		return nil, &WeatherErrorsOutput{
+			Code:    404,
+			Message: domain.ErrZipCodeNotFound.Error(),
+		}
+
 	}
 
 	return &Output{

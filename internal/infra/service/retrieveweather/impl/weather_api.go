@@ -35,10 +35,10 @@ type Output struct {
 	} `json:"current"`
 }
 
-// type ErrorOutput struct {
-// 	Code    int    `json:"code"`
-// 	Message string `json:"message"`
-// }
+type ErrorOutput struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}
 
 func NewWeatherApi(client *http.Client) *WeatherApi {
 	return &WeatherApi{Client: client}
@@ -63,12 +63,17 @@ func (w *WeatherApi) Retrieve(ctx context.Context, city string) (*domain.Tempera
 	}
 
 	if res.StatusCode != http.StatusOK {
-		// body, _ := io.ReadAll(res.Body)
-		// log.Println(string(body))
-		// var errMessage ErrorOutput
-		// _ = json.Unmarshal(body, &errMessage)
-		// log.Println(errMessage)
-		return nil, errors.New("http error status code: " + res.Status)
+		body, err := io.ReadAll(res.Body)
+		if err != nil {
+			return nil, errors.New("http error status code: " + res.Status + ". internal body read error: " + err.Error())
+		}
+		var errMessage ErrorOutput
+		err = json.Unmarshal(body, &errMessage)
+		if err != nil {
+			return nil, errors.New("http error status code: " + res.Status + ". internal unmarshal error: " + err.Error())
+		}
+		log.Println(errMessage)
+		return nil, checkMessageCode(errMessage)
 	}
 
 	body, err := io.ReadAll(res.Body)
@@ -93,4 +98,13 @@ func parser(body []byte) (Output, error) {
 		return Output{}, err
 	}
 	return data, nil
+}
+
+func checkMessageCode(errMessage ErrorOutput) error {
+	//Error code 1003: Parameter 'q' not provided.
+	//Error code 1006: No location found matching parameter 'q'
+	if errMessage.Code == 1003 || errMessage.Code == 1006 {
+		return errors.New("http error status code: " + http.StatusText(http.StatusNotFound))
+	}
+	return errors.New("internal server error" + http.StatusText(http.StatusInternalServerError))
 }
