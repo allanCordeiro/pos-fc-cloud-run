@@ -36,8 +36,10 @@ type Output struct {
 }
 
 type ErrorOutput struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
+	ErrorBase struct {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+	} `json:"error"`
 }
 
 func NewWeatherApi(client *http.Client) *WeatherApi {
@@ -103,7 +105,7 @@ func parser(body []byte) (Output, error) {
 func checkMessageCode(errMessage ErrorOutput) error {
 	//Error code 1003: Parameter 'q' not provided.
 	//Error code 1006: No location found matching parameter 'q'
-	if errMessage.Code == 1003 || errMessage.Code == 1006 {
+	if errMessage.ErrorBase.Code == 1003 || errMessage.ErrorBase.Code == 1006 {
 		return errors.New("http error status code: " + http.StatusText(http.StatusNotFound))
 	}
 	return errors.New("internal server error" + http.StatusText(http.StatusInternalServerError))
