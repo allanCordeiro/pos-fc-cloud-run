@@ -34,7 +34,7 @@ func NewViaCep(client *http.Client) *ViaCep {
 
 func (v *ViaCep) Retrieve(ctx context.Context, cep string) (*domain.Cep, error) {
 	//KLUDGE:: find a way to put this url out of this
-	url := "https://viacep.com.br/ws/zipcode/json/"
+	url := "http://viacep.com.br/ws/zipcode/json/"
 	url = strings.Replace(url, "zipcode", cep, 1)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {

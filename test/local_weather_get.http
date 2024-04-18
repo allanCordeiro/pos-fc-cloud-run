@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:8080
+
+### retrieve a city current weather
+GET {{baseUrl}}/weather/39460-000 HTTP/1.1
+Accept: application/json
+
+### fail to respond an weather because zipcode is invalid
+GET {{baseUrl}}/weather/39460-00011 HTTP/1.1
+Accept: application/json
+
+### fail to respond an weather because zipcode doesnt exist
+GET {{baseUrl}}/weather/55555-050 HTTP/1.1
+Accept: application/json

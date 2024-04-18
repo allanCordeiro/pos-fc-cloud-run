@@ -5,39 +5,22 @@
 
 Desenvolver um sistema em Go que receba um CEP, identifica a cidade e retorna o clima atual (temperatura em graus celsius, fahrenheit e kelvin). Esse sistema deverá ser publicado no Google Cloud Run.
 
-### Requisitos:
+### URL do GCP Cloud Run:
 
-- O sistema deve receber um CEP válido de 8 digitos
-- O sistema deve realizar a pesquisa do CEP e encontrar o nome da localização, a partir disso, deverá retornar as temperaturas e formata-lás em: Celsius, Fahrenheit, Kelvin.
-- O sistema deve responder adequadamente nos seguintes cenários:
+https://fc-go-expert-cloud-run-63a2rdbceq-uc.a.run.app/weather/{zip_code}
 
-#### Em caso de sucesso:
-- Código HTTP: 200
-- Response Body: `{ "temp_C": 28.5, "temp_F": 28.5, "temp_K": 28.5 }`
+Onde *zip_code* é o número do CEP que se deseja realizar a busca.
 
-#### Em caso de falha, caso o CEP não seja válido (com formato correto):
-- Código HTTP: 422
-- Mensagem: `invalid zipcode`
+### Testes e2e:
 
-#### ​​​Em caso de falha, caso o CEP não seja encontrado:
-- Código HTTP: 404
-- Mensagem: `can not find zipcode`
+estão contidos no diretório `test`
+- cloud_run_weather_get.http: testes no Cloud Run
+- local_weather_get.http: testes locais (necessário subir o serviço atravé do `docker-compose.yaml`)
 
-- Deverá ser realizado o deploy no Google Cloud Run.
+### Testes unitários/integração
+Usar a própria ferramenta de testes do Go
+`go test ./...`
 
-### Dicas:
-
-- Utilize a API viaCEP (ou similar) para encontrar a localização que deseja consultar a temperatura: https://viacep.com.br/
-- Utilize a API WeatherAPI (ou similar) para consultar as temperaturas desejadas: https://www.weatherapi.com/
-- Para realizar a conversão de Celsius para Fahrenheit, utilize a seguinte fórmula: F = C * 1,8 + 32
-- Para realizar a conversão de Celsius para Kelvin, utilize a seguinte fórmula: K = C + 273
-- Sendo F = Fahrenheit
-- Sendo C = Celsius
-- Sendo K = Kelvin
-
-### Entrega:
-
-- O código-fonte completo da implementação.
-- Testes automatizados demonstrando o funcionamento.
-- Utilize docker/docker-compose para que possamos realizar os testes de sua aplicação.
-- Deploy realizado no Google Cloud Run (free tier) e endereço ativo para ser acessado.
+### Execução local
+Subir o serviço via docker-compose:
+`docker-compose up -d`

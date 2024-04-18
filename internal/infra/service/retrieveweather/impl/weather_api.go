@@ -50,9 +50,8 @@ func (w *WeatherApi) Retrieve(ctx context.Context, city string) (*domain.Tempera
 
 	sanitizedCity := url.QueryEscape(city)
 	//KLUDGE:: find a way to put this url out of this
-	url := "https://api.weatherapi.com/v1/current.json?key=3a86487cb0804004a3b10835241004&q=" + sanitizedCity
+	url := "http://api.weatherapi.com/v1/current.json?key=3a86487cb0804004a3b10835241004&q=" + sanitizedCity
 
-	log.Println(url)
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
