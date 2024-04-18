@@ -36,7 +36,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 				"condition": {}
 			}
 		}`
-		mockURL := "https://api.weatherapi.com/v1/current.json?key=3a86487cb0804004a3b10835241004&q=salvador"
+		mockURL := "http://api.weatherapi.com/v1/current.json?key=3a86487cb0804004a3b10835241004&q=salvador"
 		httpmock.RegisterResponder(http.MethodGet, mockURL,
 			httpmock.NewStringResponder(http.StatusOK, mockResponse))
 

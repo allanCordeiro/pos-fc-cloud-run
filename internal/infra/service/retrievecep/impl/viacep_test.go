@@ -30,7 +30,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 			"ddd": "00",
 			"siafi": "0000"
 		}`
-		mockURL := "https://viacep.com.br/ws/12345678/json/"
+		mockURL := "http://viacep.com.br/ws/12345678/json/"
 		httpmock.RegisterResponder(http.MethodGet, mockURL,
 			httpmock.NewStringResponder(http.StatusOK, mockResponse))
 
@@ -61,7 +61,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 		mockResponse := `{
 			"erro": true
 		}`
-		mockURL := "https://viacep.com.br/ws/01112100/json/"
+		mockURL := "http://viacep.com.br/ws/01112100/json/"
 		httpmock.RegisterResponder(http.MethodGet, mockURL,
 			httpmock.NewStringResponder(http.StatusOK, mockResponse))
 
@@ -83,7 +83,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 		defer httpmock.DeactivateAndReset()
 
 		// Mock da resposta HTTP
-		mockURL := "https://viacep.com.br/ws/011121000/json/"
+		mockURL := "http://viacep.com.br/ws/011121000/json/"
 		httpmock.RegisterResponder(http.MethodGet, mockURL,
 			httpmock.NewStringResponder(http.StatusBadRequest, ""))
 
