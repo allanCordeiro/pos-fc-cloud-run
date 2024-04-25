@@ -1,13 +1,15 @@
 package domain
 
 type Temperature struct {
+	City       string
 	Celsius    float64
 	Fahrenheit float64
 	Kelvin     float64
 }
 
-func NewTemperature(celsius float64, fahrenheit float64) *Temperature {
+func NewTemperature(city string, celsius float64, fahrenheit float64) *Temperature {
 	t := &Temperature{
+		City:       city,
 		Celsius:    celsius,
 		Fahrenheit: fahrenheit,
 	}

@@ -18,6 +18,7 @@ type Input struct {
 }
 
 type Output struct {
+	City       string  `json:"city"`
 	Celsius    float64 `json:"temp_C"`
 	Fahrenheit float64 `json:"temp_F"`
 	Kelvin     float64 `json:"temp_K"`
@@ -50,6 +51,7 @@ func (r *RetrieveUseCase) Execute(ctx context.Context, input Input) (*Output, *W
 	}
 
 	return &Output{
+		City:       temperatures.City,
 		Celsius:    temperatures.Celsius,
 		Fahrenheit: temperatures.Fahrenheit,
 		Kelvin:     temperatures.Kelvin,

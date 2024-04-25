@@ -11,6 +11,7 @@ import (
 
 func TestViaCep_Retrieve(t *testing.T) {
 	t.Run("given a valid city when retrieve then should return weather temperatures", func(t *testing.T) {
+		expectedCity := "Salvador"
 		expectedCelsius := 28.0
 		expectedFahreinheit := 82.4
 		expectedKelvin := 301.0
@@ -48,6 +49,7 @@ func TestViaCep_Retrieve(t *testing.T) {
 		// Teste do método Retrieve
 		result, err := weatherApi.Retrieve(context.Background(), "salvador")
 		assert.NoError(t, err)
+		assert.Equal(t, expectedCity, result.City)
 		assert.Equal(t, expectedCelsius, result.Celsius)
 		assert.Equal(t, expectedFahreinheit, result.Fahrenheit)
 		assert.Equal(t, expectedKelvin, result.Kelvin)
