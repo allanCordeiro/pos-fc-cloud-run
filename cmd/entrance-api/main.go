@@ -57,10 +57,11 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//KLUDGE:: find a way to put this url out of this
-	url := "http://localhost:8080/weather/" + cep.GetCode()
+	url := "http://weather-api:8080/weather/" + cep.GetCode()
 
 	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -68,12 +69,14 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 	req.Header.Set("accept", "application/json")
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -83,6 +86,7 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 		var errorOutput ErrorOutput
 		err = json.Unmarshal(body, &errorOutput)
 		if err != nil {
+			log.Println(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -90,6 +94,7 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 	var output Output
 	err = json.Unmarshal(body, &output)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
