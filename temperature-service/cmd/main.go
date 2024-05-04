@@ -5,8 +5,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-
-	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator"
 )
 
 type Input struct {
@@ -47,7 +45,8 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	cep := pkg.NewCep(input.Cep)
+	//cep := pkg.NewCep(input.Cep)
+	cep := NewCep(input.Cep)
 
 	if !cep.IsCepCodeValid() {
 		w.WriteHeader(http.StatusBadRequest)
