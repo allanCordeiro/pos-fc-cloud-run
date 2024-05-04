@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
 )
 
 type WeatherApi struct {

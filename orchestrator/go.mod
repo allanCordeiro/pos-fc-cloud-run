@@ -1,8 +1,11 @@
-module github.com/allanCordeiro/pos-fc-cloud-run
+module github.com/allanCordeiro/pos-fc-cloud-run/orchestrator
 
 go 1.22.0
 
-require github.com/stretchr/testify v1.9.0
+require (
+	github.com/allanCordeiro/pos-fc-cloud-run v0.0.0-20240418142950-ab1d69d24f3a
+	github.com/stretchr/testify v1.9.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
