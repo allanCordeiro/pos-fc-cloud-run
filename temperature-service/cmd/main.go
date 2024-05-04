@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/pkg"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator"
 )
 
 type Input struct {
