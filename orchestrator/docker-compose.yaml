@@ -1,12 +1,4 @@
 services:
-  weather-api:
-    container_name: weather 
-    build: 
-      context: .
-      dockerfile: ./docker/weather/Dockerfile        
-    hostname: weather            
-    ports:        
-      - 8080:8080
   zipcode-api:
     container_name: zipcode 
     build: 
