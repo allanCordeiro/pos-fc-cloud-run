@@ -88,6 +88,7 @@ func (w *WeatherApi) Retrieve(ctx context.Context, city string) (*domain.Tempera
 	}
 
 	return domain.NewTemperature(
+		output.Location.Name,
 		output.Current.TempC,
 		output.Current.TempF), nil
 }
