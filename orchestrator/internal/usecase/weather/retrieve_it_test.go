@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrieveweather/impl"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/infra/service/retrieveweather/impl"
 	"github.com/stretchr/testify/assert"
 )
 

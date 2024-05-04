@@ -5,8 +5,8 @@ import (
 	"log"
 	"strings"
 
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
 	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/infra/service/retrieveweather"
-	"github.com/allanCordeiro/pos-fc-cloud-run/temperature-service/internal/domain"
 )
 
 type RetrieveUseCase struct {

@@ -1,0 +1,17 @@
+services:
+  temperature-service-api:
+    container_name: temperature-service 
+    build: 
+      context: .
+      dockerfile: ./temperature-service/docker/Dockerfile        
+    hostname: temperature-service            
+    ports:        
+      - 8080:8080
+  orchestrator-api:
+    container_name: orchestrator 
+    build: 
+      context: .
+      dockerfile: ./orchestrator/docker/Dockerfile        
+    hostname: orchestrator            
+    ports:        
+      - 8082:8082

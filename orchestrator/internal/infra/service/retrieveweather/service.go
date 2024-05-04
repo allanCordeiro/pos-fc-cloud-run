@@ -3,7 +3,7 @@ package retrieveweather
 import (
 	"context"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
 )
 
 type Retrieve interface {

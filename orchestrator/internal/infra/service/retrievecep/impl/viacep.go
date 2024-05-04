@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
 )
 
 type ViaCep struct {

@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/allanCordeiro/pos-fc-cloud-run/pkg"
+import "github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/pkg"
 
 type Cep struct {
 	Code     string

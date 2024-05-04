@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrievecep"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/infra/service/retrievecep"
 )
 
 type RetrieveUseCase struct {

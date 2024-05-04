@@ -48,6 +48,7 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	cep := pkg.NewCep(input.Cep)
+
 	if !cep.IsCepCodeValid() {
 		w.WriteHeader(http.StatusBadRequest)
 		_ = json.NewEncoder(w).Encode(&ErrorOutput{

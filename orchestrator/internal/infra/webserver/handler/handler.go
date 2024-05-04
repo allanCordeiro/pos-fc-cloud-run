@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/usecase/cep"
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/usecase/weather"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/usecase/cep"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/usecase/weather"
 )
 
 type WeatherHandler struct {

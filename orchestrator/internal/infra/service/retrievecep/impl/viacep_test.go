@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/domain"
-	"github.com/allanCordeiro/pos-fc-cloud-run/internal/infra/service/retrievecep/impl"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/domain"
+	"github.com/allanCordeiro/pos-fc-cloud-run/orchestrator/internal/infra/service/retrievecep/impl"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
 )
