@@ -6,11 +6,11 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /weather cmd/weather-api/main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /weather cmd/main.go
 
 
 FROM scratch
 COPY --from=builder /weather /weather
 
-EXPOSE 8080
+EXPOSE 8082
 ENTRYPOINT [ "/weather" ]

@@ -58,7 +58,7 @@ func EntranceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//KLUDGE:: find a way to put this url out of this
-	url := "http://weather-api:8080/weather/" + cep.GetCode()
+	url := "http://orchestrator-api:8080/weather/" + cep.GetCode()
 
 	req, err := http.NewRequestWithContext(r.Context(), http.MethodGet, url, nil)
 	if err != nil {
