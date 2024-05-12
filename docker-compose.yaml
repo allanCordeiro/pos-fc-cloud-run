@@ -7,6 +7,12 @@ services:
     hostname: temperature-service            
     ports:        
       - 8082:8082
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "while ! nc -w 1 -z zipkin 9411; do echo sleep for 1s waiting for temperature-service-api to become available; sleep 1; done && /weather -zipkin http://zipkin:9411/api/v2/spans"
+    depends_on:
+      - zipkin
   orchestrator-api:
     container_name: orchestrator 
     build: 
@@ -14,4 +20,16 @@ services:
       dockerfile: ./docker/Dockerfile        
     hostname: orchestrator            
     ports:        
-      - 8080:8080
+      - 8080:8080  
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "while ! nc -w 1 -z zipkin 9411; do echo sleep for 1s waiting for temperature-service-api to become available; sleep 1; done && /zipcode -zipkin http://zipkin:9411/api/v2/spans"  
+    depends_on:
+      - zipkin
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    hostname: zipkin
+    ports:
+      - "9411:9411"
