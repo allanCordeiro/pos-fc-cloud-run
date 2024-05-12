@@ -1,0 +1,5 @@
+### request de teste
+POST http://localhost:8082/temperatura HTTP/1.1
+content-type: application/json
+
+{"cep": "01211-100"}

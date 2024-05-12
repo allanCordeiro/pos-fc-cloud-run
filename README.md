@@ -10,3 +10,5 @@ Subir o serviço via docker-compose:
 `docker-compose up -d`
 
 Serviço do Zipkin está configurado em `http://localhost:9411/`
+
+Existe um arquivo, `resquest_sample.http` na raiz do repositório, com uma requisição padrão ao serviço A, para auxiliar na avaliação.

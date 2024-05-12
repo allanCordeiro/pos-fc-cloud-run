@@ -1,9 +1,10 @@
 services:
   temperature-service-api:
     container_name: temperature-service 
-    build: 
-      context: ./temperature-service
-      dockerfile: ./docker/Dockerfile        
+    image: allancordeiros/temperature-service:latest
+    #build: 
+      #context: ./temperature-service
+      #dockerfile: ./docker/Dockerfile        
     hostname: temperature-service            
     ports:        
       - 8082:8082
@@ -15,9 +16,10 @@ services:
       - zipkin
   orchestrator-api:
     container_name: orchestrator 
-    build: 
-      context: ./orchestrator
-      dockerfile: ./docker/Dockerfile        
+    image: allancordeiros/orchestrator:latest
+    #build: 
+      #context: ./orchestrator
+      #dockerfile: ./docker/Dockerfile        
     hostname: orchestrator            
     ports:        
       - 8080:8080  
